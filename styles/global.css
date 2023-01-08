@@ -1,0 +1,28 @@
+html,
+body {
+  background-color: rgb(164, 102, 102);
+  padding: 0;
+  margin: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+.container {
+  margin: 0px 50px;
+}
+main {
+  border: red 1px solid;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
