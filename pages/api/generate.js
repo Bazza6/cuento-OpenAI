@@ -60,6 +60,9 @@ export default async function (req, res) {
 function generatePrompt(protagonista, lugar) {
 
   return `
-  crea la primera parte de un muy breve cuento para niños ambientado en ${lugar} y
-  que tiene como protagonista ${protagonista}.`;
+  crea 3 puntos:
+  1. La primera parte de un breve cuento para niños ambientado en ${lugar} y
+  que tiene como protagonista ${protagonista}.
+  2. Opción A de como podria seguir el cuento. Maximo dos frases.
+  3. Opción B de como podria seguir el cuento. Maximo dos frases.`;
 }
