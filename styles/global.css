@@ -26,3 +26,12 @@ form {
   align-items: center;
   flex-direction: column;
 }
+
+.buttonsContainer {
+  display: flex;
+  gap: 20%;
+}
+.buttonsContainer button {
+  width: 50%;
+  padding: 20px;
+}

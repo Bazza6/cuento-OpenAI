@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 // import styles from '../styles/Home.module.css';
 import Link from "next/link";
+import Prueba from "../components/prueba"
 
 export default function Home() {
   const [protagonista, setProtagonista] = useState("");
@@ -9,6 +10,7 @@ export default function Home() {
   const [primeraParte, setPrimeraParte] = useState("");
   const [A, setA] = useState();
   const [B, setB] = useState();
+  const [imageURL, setImageURL] = useState()
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -36,10 +38,9 @@ export default function Home() {
       // part1 = part1.replace("1. ", "")
       // part2 = part2.replace("2. Opción A: .", "")
       // part3 = part3.replace("3. Opción B: .", "")
-
-      console.log('primeraParte:', primeraParte);
-      console.log('A:', A);
-      console.log('B:', B);
+      // console.log('primeraParte:', primeraParte);
+      // console.log('A:', A);
+      // console.log('B:', B);
 
 
       // console.log("REUSLTADO", data.result);
@@ -50,9 +51,34 @@ export default function Home() {
       console.error(error);
       alert(error.message);
     }
-  }
 
-  // console.log('result', result)
+    // createImage
+    try {
+      const response = await fetch("/api/createImage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: `${protagonista} in ${lugar} retro art`,
+        }),
+      });
+
+      const imageResponse = await response.json();
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
+      const img = imageResponse.imageURL;
+      console.log('img', img)
+      setImageURL(img)
+
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+
+
+  }
 
   return (
     <div className="container">
@@ -61,6 +87,7 @@ export default function Home() {
       </Head>
 
       <main>
+        <Prueba text="mandi" />
         <Link href='/about'>Abaut</Link>
         <h2>Cuéntame un cuento</h2>
         <form onSubmit={onSubmit}>
@@ -81,8 +108,11 @@ export default function Home() {
           <input type="submit" value="Crea el cuento" />
         </form>
         <div>{primeraParte}</div>
-        {A && <button>{A}</button>}
-        {B && <button>{B}</button>}
+        <div className="buttonsContainer">
+          {A && <button>{A}</button>}
+          {B && <button>{B}</button>}
+        </div>
+        {imageURL && <img src={imageURL} />}
       </main>
     </div>
   );
