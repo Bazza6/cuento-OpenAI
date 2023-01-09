@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 // import styles from '../styles/Home.module.css';
 import Link from "next/link";
-import Prueba from "../components/prueba"
+import ProtagonistasList from "../components/protagonistasList";
 
 export default function Home() {
   const [protagonista, setProtagonista] = useState("");
@@ -87,7 +87,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <Prueba text="mandi" />
+        <ProtagonistasList />
         <Link href='/about'>Abaut</Link>
         <h2>Cuéntame un cuento</h2>
         <form onSubmit={onSubmit}>

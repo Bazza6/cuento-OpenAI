@@ -1,0 +1,34 @@
+[
+  {
+    "name": "🤖 robot",
+    "prompt": "un robot"
+  },
+  {
+    "name": "🍰 tarta de queso",
+    "prompt": "una tarta de queso"
+  },
+  {
+    "name": "🍌 banana",
+    "prompt": "una banana"
+  },
+  {
+    "name": "🐈 gato",
+    "prompt": "un gato"
+  },
+  {
+    "name": "🐶 perro",
+    "prompt": "un perro"
+  },
+  {
+    "name": "💡 bombilla ",
+    "prompt": "una bombilla"
+  },
+  {
+    "name": "🚲 bicicleta ",
+    "prompt": "una bicicleta"
+  },
+  {
+    "name": "🐙 pulpo ",
+    "prompt": "un pulipo"
+  }
+]
