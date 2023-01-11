@@ -11,6 +11,7 @@ export default function Home() {
   const [A, setA] = useState();
   const [B, setB] = useState();
   const [imageURL, setImageURL] = useState()
+  const [final, setFinal] = useState()
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -22,7 +23,8 @@ export default function Home() {
         },
         body: JSON.stringify({
           protagonista: protagonista,
-          lugar: lugar
+          lugar: lugar,
+          type: 'primeraParte'
         }),
       });
 
@@ -35,16 +37,6 @@ export default function Home() {
       setA(parts[4].replace("2. Opción A: ", ""))
       setB(parts[6].replace("3. Opción B: ", ""))
 
-      // part1 = part1.replace("1. ", "")
-      // part2 = part2.replace("2. Opción A: .", "")
-      // part3 = part3.replace("3. Opción B: .", "")
-      // console.log('primeraParte:', primeraParte);
-      // console.log('A:', A);
-      // console.log('B:', B);
-
-
-      // console.log("REUSLTADO", data.result);
-      //setResult(data.result);
       setProtagonista("");
       setLugar("");
     } catch (error) {
@@ -80,6 +72,35 @@ export default function Home() {
 
   }
 
+  async function onSubmit2(opcion) {
+    try {
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          primeraParte: primeraParte,
+          segundaParte: opcion,
+          type: 'segundaParte'
+        }),
+      });
+
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
+      const fin = data.result
+      setFinal(fin)
+
+
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
+  console.log('final: ', final)
   return (
     <div className="container">
       <Head>
@@ -109,10 +130,11 @@ export default function Home() {
         </form>
         <div>{primeraParte}</div>
         <div className="buttonsContainer">
-          {A && <button>{A}</button>}
-          {B && <button>{B}</button>}
+          {A && <button onClick={() => onSubmit2(A)}>{A}</button>}
+          {B && <button onClick={() => onSubmit2(B)}>{B}</button>}
         </div>
         {imageURL && <img src={imageURL} />}
+        {final && final}
       </main>
     </div>
   );

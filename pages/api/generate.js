@@ -1,68 +1,76 @@
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
 export default async function (req, res) {
-  if (!configuration.apiKey) {
-    res.status(500).json({
-      error: {
-        message: "OpenAI API key not configured",
-      }
-    });
-    return;
-  }
-
-  const protagonista = req.body.protagonista || '';
-  if (protagonista.trim().length === 0) {
-    res.status(400).json({
-      error: {
-        message: "completar el campo protagonista",
-      }
-    });
-    return;
-  }
-  const lugar = req.body.lugar || '';
-  if (lugar.trim().length === 0) {
-    res.status(400).json({
-      error: {
-        message: "completar el campo lugar",
-      }
-    });
-    return;
-  }
-
-  try {
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: generatePrompt(protagonista, lugar),
-      temperature: 0.6,
-      max_tokens: 500,
-    });
-    res.status(200).json({ result: completion.data.choices[0].text });
-  } catch (error) {
-    if (error.response) {
-      console.error(error.response.status, error.response.data);
-      res.status(error.response.status).json(error.response.data);
-    } else {
-      console.error(`Error with OpenAI API request: ${error.message}`);
-      res.status(500).json({
-        error: {
-          message: 'An error occurred during your request.',
-        }
-      });
+    if (!configuration.apiKey) {
+        res.status(500).json({
+            error: {
+                message: "OpenAI API key not configured",
+            }
+        });
+        return;
     }
-  }
+
+    const type = req.body.type || '';
+    let prompt;
+    switch (type) {
+        case 'primeraParte':
+            const protagonista = req.body.protagonista || '';
+            if (protagonista.trim().length === 0) {
+                res.status(400).json({
+                    error: {
+                        message: "completar el campo protagonista",
+                    }
+                });
+                return;
+            }
+            const lugar = req.body.lugar || '';
+            if (lugar.trim().length === 0) {
+                res.status(400).json({
+                    error: {
+                        message: "completar el campo lugar",
+                    }
+                });
+                return;
+            }
+            prompt = generatePrompt1(protagonista, lugar);
+            break;
+
+        case 'segundaParte':
+            const primeraParte = req.body.primeraParte || '';
+            const segundaParte = req.body.segundaParte || '';
+            prompt = generatePrompt2(primeraParte, segundaParte);
+            break;
+        default:
+            break;
+    }
+    try {
+        const completion = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: prompt,
+            temperature: 0.6,
+            max_tokens: 500,
+        });
+        res.status(200).json({ result: completion.data.choices[0].text });
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-function generatePrompt(protagonista, lugar) {
+function generatePrompt1(protagonista, lugar) {
 
-  return `
-  crea 3 puntos:
-  1. La primera parte de un breve cuento para niños ambientado en ${lugar} y
-  que tiene como protagonista ${protagonista}.
-  2. Opción A de como podria seguir el cuento. Maximo dos frases.
-  3. Opción B de como podria seguir el cuento. Maximo dos frases.`;
+    return `
+    crea 3 puntos:
+    1. La primera parte de un breve cuento para niños ambientado en ${lugar} y
+    que tiene como protagonista ${protagonista}.
+    2. Opción A de como podria seguir el cuento. Maximo dos frases.
+    3. Opción B de como podria seguir el cuento. Maximo dos frases.`;
+}
+
+function generatePrompt2(primeraParte, segundaParte) {
+    return `crea un final corto por este cuento: ${primeraParte}. ${segundaParte}`;
 }
