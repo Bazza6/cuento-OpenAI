@@ -1,9 +1,11 @@
 import Head from "next/head";
 import { useState } from "react";
 // import styles from '../styles/Home.module.css';
-import Link from "next/link";
+// import Link from "next/link";
+import { Button, Frame } from "react95";
 import ProtagonistasList from "../components/protagonistasList";
 import LugarList from "../components/lugarList";
+import Hola from "../components/hola";
 
 export default function Home() {
   const [protagonista, setProtagonista] = useState("");
@@ -99,7 +101,7 @@ export default function Home() {
       alert(error.message);
     }
   }
-
+  console.log('PROTAGONISTA: ', protagonista)
   console.log('final: ', final)
   return (
     <div className="container">
@@ -108,34 +110,15 @@ export default function Home() {
       </Head>
 
       <main>
-        <h2>Cuéntame un cuento</h2>
         <div className="inputContainer">
-          <ProtagonistasList setProtagonista={setProtagonista} />
-          <LugarList setLugar={setLugar} />
+          <ProtagonistasList protagonista={protagonista} setProtagonista={setProtagonista} />
+          <LugarList lugar={lugar} setLugar={setLugar} />
         </div>
-        {/* <Link href='/about'>Abaut</Link> */}
-        {/* <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            name="protagonista"
-            placeholder="protagonista..."
-            value={protagonista}
-            onChange={(e) => setProtagonista(e.target.value)}
-          />
-          <input
-            type="text"
-            name="lugar"
-            placeholder="un lugar..."
-            value={lugar}
-            onChange={(e) => setLugar(e.target.value)}
-          />
-          <input type="submit" value="Crea el cuento" />
-        </form> */}
-        <button onClick={onSubmit}> Crea el cuento</button>
-        <div>{primeraParte}</div>
+        <Button onClick={onSubmit}> Crea el cuento</Button>
+        <div className="primaParte">{primeraParte}</div>
         <div className="buttonsContainer">
-          {A && <button onClick={() => onSubmit2(A)}>{A}</button>}
-          {B && <button onClick={() => onSubmit2(B)}>{B}</button>}
+          {A && <Button size="xl" onClick={() => onSubmit2(A)}>{A}</Button>}
+          {B && <Button size="xl" onClick={() => onSubmit2(B)}>{B}</Button>}
         </div>
         {imageURL && <img src={imageURL} />}
         {final && final}
