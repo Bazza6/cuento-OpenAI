@@ -1,9 +1,10 @@
-import Head from "next/head";
 import { useState } from "react";
 // import styles from '../styles/Home.module.css';
-import Link from "next/link";
+// import Link from "next/link";
+import { Button, Frame, Hourglass } from "react95";
 import ProtagonistasList from "../components/protagonistasList";
 import LugarList from "../components/lugarList";
+import Hola from "../components/hola";
 
 export default function Home() {
   const [protagonista, setProtagonista] = useState("");
@@ -13,8 +14,11 @@ export default function Home() {
   const [B, setB] = useState();
   const [imageURL, setImageURL] = useState()
   const [final, setFinal] = useState()
+  const [disabledInput, setDisabledInput] = useState(false)
+  const [disabledButton, setDisableButton] = useState(false)
 
   async function onSubmit(event) {
+    setDisabledInput(true)
     event.preventDefault();
     try {
       const response = await fetch("/api/generate", {
@@ -62,7 +66,6 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
       const img = imageResponse.imageURL;
-      console.log('img', img)
       setImageURL(img)
 
     } catch (error) {
@@ -74,6 +77,7 @@ export default function Home() {
   }
 
   async function onSubmit2(opcion) {
+    setDisableButton(true)
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -99,46 +103,52 @@ export default function Home() {
       alert(error.message);
     }
   }
+  // console.log('PROTAGONISTA: ', protagonista)
+  // console.log('final: ', final)
+  console.log('a:', A)
+  console.log('b:', B)
 
-  console.log('final: ', final)
+  const reset = () => {
+    setProtagonista("")
+    setLugar("")
+    setPrimeraParte("");
+    setA();
+    setB();
+    setImageURL()
+    setFinal()
+    setDisabledInput()
+    setDisableButton()
+  }
+
   return (
     <div className="container">
-      <Head>
-        <title>Cuéntame un cuento</title>
-      </Head>
 
       <main>
-        <h2>Cuéntame un cuento</h2>
         <div className="inputContainer">
-          <ProtagonistasList setProtagonista={setProtagonista} />
-          <LugarList setLugar={setLugar} />
+          <ProtagonistasList protagonista={protagonista} setProtagonista={setProtagonista} disabledInput={disabledInput} />
+          <LugarList lugar={lugar} setLugar={setLugar} disabledInput={disabledInput} />
         </div>
-        {/* <Link href='/about'>Abaut</Link> */}
-        {/* <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            name="protagonista"
-            placeholder="protagonista..."
-            value={protagonista}
-            onChange={(e) => setProtagonista(e.target.value)}
-          />
-          <input
-            type="text"
-            name="lugar"
-            placeholder="un lugar..."
-            value={lugar}
-            onChange={(e) => setLugar(e.target.value)}
-          />
-          <input type="submit" value="Crea el cuento" />
-        </form> */}
-        <button onClick={onSubmit}> Crea el cuento</button>
-        <div>{primeraParte}</div>
-        <div className="buttonsContainer">
-          {A && <button onClick={() => onSubmit2(A)}>{A}</button>}
-          {B && <button onClick={() => onSubmit2(B)}>{B}</button>}
-        </div>
-        {imageURL && <img src={imageURL} />}
-        {final && final}
+        <Button disabled={!protagonista || !lugar} onClick={onSubmit}> Crea el cuento</Button>
+
+        {(disabledInput && !primeraParte) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> : <div className="primaParte">{primeraParte}</div>}
+
+
+
+
+        {(primeraParte && !imageURL) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> : <>
+          <img src={imageURL} />
+          <div className="buttonsContainer">
+            {A && <Button disabled={disabledButton} size="xl" onClick={() => onSubmit2(A)}>{A}</Button>}
+            {B && <Button disabled={disabledButton} size="xl" onClick={() => onSubmit2(B)}>{B}</Button>}
+          </div>
+        </>}
+
+
+        {(disabledButton && !final) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> :
+          <div className="primaParte">{final}</div>}
+        {final && <div>
+          <Button onClick={reset}>RESET</Button>
+        </div>}
       </main>
     </div>
   );
