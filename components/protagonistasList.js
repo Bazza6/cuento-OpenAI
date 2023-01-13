@@ -1,24 +1,30 @@
 import protagonistas from "../protagonista.json"
 
-export default function ProtagonistasList() {
+export default function ProtagonistasList({ setProtagonista }) {
 
-    const list = protagonistas.map(p => {
+    function onChangeValue(event) {
+        setProtagonista(event.target.value);
+        console.log('Protagonista:', event.target.value);
+    }
+
+    const list = protagonistas.map((p, index) => {
         return (
-            <div>
-                <input type="radio" id={p.prompt} name={p.prompt} value={p.prompt} />
+            <div key={index}>
+                <input type="radio" id={p.prompt} name='radio' value={p.prompt} />
                 <label htmlFor={p.prompt}>{p.name}</label>
             </div>
         )
     }
     )
 
-    console.log(protagonistas)
 
     return (
         <fieldset>
             <legend>Elije tu protagonista:</legend>
 
-            {list}
+            <div onChange={onChangeValue}>
+                {list}
+            </div>
         </fieldset>
     )
 

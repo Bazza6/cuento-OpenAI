@@ -14,5 +14,25 @@
   {
     "name": "🚀 nave espacial",
     "prompt": "una nave espacial"
+  },
+  {
+    "name": "✨ estrella",
+    "prompt": "una estrella"
+  },
+  {
+    "name": "🎒 mochila",
+    "prompt": "el interior de una mochila"
+  },
+  {
+    "name": "🌊 mar",
+    "prompt": "el mar"
+  },
+  {
+    "name": "🏜 desierto",
+    "prompt": "el desierto"
+  },
+  {
+    "name": "📕 libro",
+    "prompt": "un las paginas de un libro"
   }
 ]

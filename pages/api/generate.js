@@ -65,10 +65,10 @@ function generatePrompt1(protagonista, lugar) {
 
     return `
     crea 3 puntos:
-    1. La primera parte de un breve cuento para niños ambientado en ${lugar} y
+    1. La primera parte de un cuento para niños ambientado en ${lugar} y
     que tiene como protagonista ${protagonista}.
-    2. Opción A de como podria seguir el cuento. Maximo dos frases.
-    3. Opción B de como podria seguir el cuento. Maximo dos frases.`;
+    2. Opción A de como podria seguir el cuento. Maximo una frase.
+    3. Opción B de como podria seguir el cuento. Maximo una frase.`;
 }
 
 function generatePrompt2(primeraParte, segundaParte) {

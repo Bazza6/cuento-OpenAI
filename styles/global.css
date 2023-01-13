@@ -1,6 +1,6 @@
 html,
 body {
-  background-color: rgb(164, 102, 102);
+  background-color: rgb(168, 168, 168);
   padding: 0;
   margin: 0;
   font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
@@ -33,4 +33,8 @@ form {
 .buttonsContainer button {
   width: 50%;
   padding: 20px;
+}
+
+.inputContainer {
+  display: flex;
 }

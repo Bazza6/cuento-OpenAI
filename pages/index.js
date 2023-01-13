@@ -3,6 +3,7 @@ import { useState } from "react";
 // import styles from '../styles/Home.module.css';
 import Link from "next/link";
 import ProtagonistasList from "../components/protagonistasList";
+import LugarList from "../components/lugarList";
 
 export default function Home() {
   const [protagonista, setProtagonista] = useState("");
@@ -93,7 +94,6 @@ export default function Home() {
       const fin = data.result
       setFinal(fin)
 
-
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -108,10 +108,13 @@ export default function Home() {
       </Head>
 
       <main>
-        <ProtagonistasList />
-        <Link href='/about'>Abaut</Link>
         <h2>Cuéntame un cuento</h2>
-        <form onSubmit={onSubmit}>
+        <div className="inputContainer">
+          <ProtagonistasList setProtagonista={setProtagonista} />
+          <LugarList setLugar={setLugar} />
+        </div>
+        {/* <Link href='/about'>Abaut</Link> */}
+        {/* <form onSubmit={onSubmit}>
           <input
             type="text"
             name="protagonista"
@@ -127,7 +130,8 @@ export default function Home() {
             onChange={(e) => setLugar(e.target.value)}
           />
           <input type="submit" value="Crea el cuento" />
-        </form>
+        </form> */}
+        <button onClick={onSubmit}> Crea el cuento</button>
         <div>{primeraParte}</div>
         <div className="buttonsContainer">
           {A && <button onClick={() => onSubmit2(A)}>{A}</button>}
