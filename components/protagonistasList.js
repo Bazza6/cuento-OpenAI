@@ -1,7 +1,7 @@
 import { GroupBox, Radio, Window, WindowContent } from "react95";
 import protagonistas from "../protagonista.json"
 
-export default function ProtagonistasList({ protagonista, setProtagonista }) {
+export default function ProtagonistasList({ protagonista, setProtagonista, disabledInput }) {
 
     function onChangeValue(event) {
         setProtagonista(event.target.value);
@@ -27,6 +27,7 @@ export default function ProtagonistasList({ protagonista, setProtagonista }) {
                     type="radio"
                     label={p.name}
                     onchange={handleChange}
+                    disabled={disabledInput}
                 />
             </div>
         )

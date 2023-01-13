@@ -20,7 +20,6 @@ body {
   background-color: #c6c6c6;
   padding: 0;
   margin: 0;
-  max-width: 75ch;
   /* font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
 }
@@ -45,7 +44,9 @@ form {
 }
 
 .buttonsContainer {
+  max-width: 512px;
   display: flex;
+  justify-content: space-between;
   gap: 10%;
   margin: 20px 0px;
 }
@@ -60,4 +61,5 @@ form {
 }
 .primaParte {
   margin: 20px 0px;
+  max-width: 512px;
 }

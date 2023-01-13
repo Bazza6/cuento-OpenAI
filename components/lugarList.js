@@ -2,7 +2,7 @@ import { GroupBox, Radio, Window, WindowContent } from "react95";
 
 import ambientacion from "../ambientacion.json"
 
-export default function LugarList({ lugar, setLugar }) {
+export default function LugarList({ lugar, setLugar, disabledInput }) {
 
     function onChangeValue(event) {
         setLugar(event.target.value);
@@ -18,20 +18,15 @@ export default function LugarList({ lugar, setLugar }) {
         return (
 
             <div key={index}>
-
-                {/* <div key={index}>
-                <input type="radio" id={p.prompt} name='ambientacion' value={p.prompt} />
-                <label htmlFor={p.prompt}>{p.name}</label>
-            </div> */}
-
                 < Radio
                     checked={p.prompt === lugar}
                     value={p.prompt}
-                    name='radio'
+                    name='ambientacion'
                     id={p.prompt}
                     type="radio"
                     label={p.name}
                     onchange={handleChange}
+                    disabled={disabledInput}
                 />
             </div >
         )

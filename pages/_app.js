@@ -2,7 +2,7 @@ import '../styles/global.css'
 import React from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-import { MenuList, MenuListItem, Separator, styleReset } from 'react95';
+import { AppBar, MenuList, MenuListItem, Separator, styleReset } from 'react95';
 // pick a theme of your choice
 import original from 'react95/dist/themes/original';
 

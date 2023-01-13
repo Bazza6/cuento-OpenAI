@@ -72,5 +72,5 @@ function generatePrompt1(protagonista, lugar) {
 }
 
 function generatePrompt2(primeraParte, segundaParte) {
-    return `crea un final corto por este cuento: ${primeraParte}. ${segundaParte}`;
+    return `crea un final corto  de maximo tres frases por este cuento: ${primeraParte}. ${segundaParte}`;
 }

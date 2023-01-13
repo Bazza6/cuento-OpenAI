@@ -1,8 +1,7 @@
-import Head from "next/head";
 import { useState } from "react";
 // import styles from '../styles/Home.module.css';
 // import Link from "next/link";
-import { Button, Frame } from "react95";
+import { Button, Frame, Hourglass } from "react95";
 import ProtagonistasList from "../components/protagonistasList";
 import LugarList from "../components/lugarList";
 import Hola from "../components/hola";
@@ -15,8 +14,11 @@ export default function Home() {
   const [B, setB] = useState();
   const [imageURL, setImageURL] = useState()
   const [final, setFinal] = useState()
+  const [disabledInput, setDisabledInput] = useState(false)
+  const [disabledButton, setDisableButton] = useState(false)
 
   async function onSubmit(event) {
+    setDisabledInput(true)
     event.preventDefault();
     try {
       const response = await fetch("/api/generate", {
@@ -64,7 +66,6 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
       const img = imageResponse.imageURL;
-      console.log('img', img)
       setImageURL(img)
 
     } catch (error) {
@@ -76,6 +77,7 @@ export default function Home() {
   }
 
   async function onSubmit2(opcion) {
+    setDisableButton(true)
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -101,27 +103,52 @@ export default function Home() {
       alert(error.message);
     }
   }
-  console.log('PROTAGONISTA: ', protagonista)
-  console.log('final: ', final)
+  // console.log('PROTAGONISTA: ', protagonista)
+  // console.log('final: ', final)
+  console.log('a:', A)
+  console.log('b:', B)
+
+  const reset = () => {
+    setProtagonista("")
+    setLugar("")
+    setPrimeraParte("");
+    setA();
+    setB();
+    setImageURL()
+    setFinal()
+    setDisabledInput()
+    setDisableButton()
+  }
+
   return (
     <div className="container">
-      <Head>
-        <title>Cuéntame un cuento</title>
-      </Head>
 
       <main>
         <div className="inputContainer">
-          <ProtagonistasList protagonista={protagonista} setProtagonista={setProtagonista} />
-          <LugarList lugar={lugar} setLugar={setLugar} />
+          <ProtagonistasList protagonista={protagonista} setProtagonista={setProtagonista} disabledInput={disabledInput} />
+          <LugarList lugar={lugar} setLugar={setLugar} disabledInput={disabledInput} />
         </div>
-        <Button onClick={onSubmit}> Crea el cuento</Button>
-        <div className="primaParte">{primeraParte}</div>
-        <div className="buttonsContainer">
-          {A && <Button size="xl" onClick={() => onSubmit2(A)}>{A}</Button>}
-          {B && <Button size="xl" onClick={() => onSubmit2(B)}>{B}</Button>}
-        </div>
-        {imageURL && <img src={imageURL} />}
-        {final && final}
+        <Button disabled={!protagonista || !lugar} onClick={onSubmit}> Crea el cuento</Button>
+
+        {(disabledInput && !primeraParte) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> : <div className="primaParte">{primeraParte}</div>}
+
+
+
+
+        {(primeraParte && !imageURL) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> : <>
+          <img src={imageURL} />
+          <div className="buttonsContainer">
+            {A && <Button disabled={disabledButton} size="xl" onClick={() => onSubmit2(A)}>{A}</Button>}
+            {B && <Button disabled={disabledButton} size="xl" onClick={() => onSubmit2(B)}>{B}</Button>}
+          </div>
+        </>}
+
+
+        {(disabledButton && !final) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> :
+          <div className="primaParte">{final}</div>}
+        {final && <div>
+          <Button onClick={reset}>RESET</Button>
+        </div>}
       </main>
     </div>
   );
