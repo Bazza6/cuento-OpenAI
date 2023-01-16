@@ -1,10 +1,7 @@
 import { useState } from "react";
-// import styles from '../styles/Home.module.css';
-// import Link from "next/link";
 import { Button, Frame, Hourglass } from "react95";
 import ProtagonistasList from "../components/protagonistasList";
 import LugarList from "../components/lugarList";
-import Hola from "../components/hola";
 
 export default function Home() {
   const [protagonista, setProtagonista] = useState("");
@@ -38,9 +35,17 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
       const parts = data.result.split("\n");
-      setPrimeraParte(parts[2].replace("1. ", ""))
-      setA(parts[4].replace("2. Opción A: ", ""))
-      setB(parts[6].replace("3. Opción B: ", ""))
+      console.log('parts:', parts)
+      let partsLength = parts.length
+      console.log('length', partsLength)
+      for (let i = 0; i < partsLength; i++)
+        if (parts[i].includes('1. ')) {
+          setPrimeraParte(parts[i].replace("1. ", ""))
+        } else if (parts[i].includes("2. Opción A: ")) {
+          setA(parts[i].replace("2. Opción A: ", ""))
+        } else if (parts[i].includes("3. Opción B: ")) {
+          setB(parts[i].replace("3. Opción B: ", ""))
+        }
 
       setProtagonista("");
       setLugar("");
@@ -72,8 +77,6 @@ export default function Home() {
       console.error(error);
       alert(error.message);
     }
-
-
   }
 
   async function onSubmit2(opcion) {
@@ -103,10 +106,6 @@ export default function Home() {
       alert(error.message);
     }
   }
-  // console.log('PROTAGONISTA: ', protagonista)
-  // console.log('final: ', final)
-  console.log('a:', A)
-  console.log('b:', B)
 
   const reset = () => {
     setProtagonista("")
@@ -122,7 +121,6 @@ export default function Home() {
 
   return (
     <div className="container">
-
       <main>
         <div className="inputContainer">
           <ProtagonistasList protagonista={protagonista} setProtagonista={setProtagonista} disabledInput={disabledInput} />
@@ -132,9 +130,6 @@ export default function Home() {
 
         {(disabledInput && !primeraParte) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> : <div className="primaParte">{primeraParte}</div>}
 
-
-
-
         {(primeraParte && !imageURL) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> : <>
           <img src={imageURL} />
           <div className="buttonsContainer">
@@ -142,7 +137,6 @@ export default function Home() {
             {B && <Button disabled={disabledButton} size="xl" onClick={() => onSubmit2(B)}>{B}</Button>}
           </div>
         </>}
-
 
         {(disabledButton && !final) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> :
           <div className="primaParte">{final}</div>}
