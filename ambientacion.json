@@ -33,6 +33,10 @@
   },
   {
     "name": "📕 libro",
-    "prompt": "un las paginas de un libro"
+    "prompt": "las paginas de un libro"
+  },
+  {
+    "name": "🏙 ciudad",
+    "prompt": "una ciudad"
   }
 ]
