@@ -1,10 +1,15 @@
 import '../styles/global.css'
 import React from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { useState } from "react";
+import styled from 'styled-components';
 
-import { AppBar, MenuList, MenuListItem, Separator, styleReset } from 'react95';
+import { Select, Window } from 'react95';
 // pick a theme of your choice
 import original from 'react95/dist/themes/original';
+import modernDark from 'react95/dist/themes/modernDark';
+
+
 
 //import localFont from '@next/font/local'
 
@@ -42,12 +47,34 @@ import original from 'react95/dist/themes/original';
 
 
 function MyApp({ Component, pageProps }) {
+
+  const [theme, setTheme] = useState(original)
+  const options = [{ value: original, label: 'LIGHT 💡' }, { value: modernDark, label: 'DARK' }]
+
+  const handleTypeSelect = e => {
+    setTheme(e.value);
+  };
+
   return (
-    <div>
-      <ThemeProvider theme={original}>
+    <ThemeProvider theme={theme}>
+      <Window style={{ width: '100%', minHeight: '100vh', height: '100%' }}>
+        <div id='default-selects'>
+          <Select
+            // defaultValue={1}
+            options={options}
+            menuMaxHeight={160}
+            width={160}
+            onChange={handleTypeSelect}
+
+            onOpen={e => console.log('open', e)}
+            onClose={e => console.log('close', e)}
+            onBlur={e => console.log('blur', e)}
+            onFocus={e => console.log('focus', e)}
+          />
+        </div>
         <Component {...pageProps} />
-      </ThemeProvider>
-    </div>
+      </Window>
+    </ThemeProvider>
   )
 }
 

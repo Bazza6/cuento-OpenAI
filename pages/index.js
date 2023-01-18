@@ -118,7 +118,6 @@ export default function Home() {
     setDisabledInput()
     setDisableButton()
   }
-
   return (
     <div className="container">
       <main>
@@ -131,7 +130,7 @@ export default function Home() {
         {(disabledInput && !primeraParte) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> : <div className="primaParte">{primeraParte}</div>}
 
         {(primeraParte && !imageURL) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> : <>
-          <img src={imageURL} />
+          <img className="img" src={imageURL} />
           <div className="buttonsContainer">
             {A && <Button disabled={disabledButton} size="xl" onClick={() => onSubmit2(A)}>{A}</Button>}
             {B && <Button disabled={disabledButton} size="xl" onClick={() => onSubmit2(B)}>{B}</Button>}
