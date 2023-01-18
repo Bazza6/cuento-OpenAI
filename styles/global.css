@@ -9,6 +9,7 @@
 * {
   font-family: "ms sans serif";
   font-size: 1rem;
+  box-sizing: border-box;
 }
 h2 {
   font-family: "ms sans serif bold";
@@ -22,11 +23,10 @@ body {
   margin: 0px;
 }
 
-* {
-  box-sizing: border-box;
-}
 .container {
-  margin: 80px 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
 }
 
 form {
