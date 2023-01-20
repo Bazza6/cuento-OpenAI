@@ -71,7 +71,6 @@ function generatePrompt1(protagonista, lugar) {
     3. Opción B de como podria seguir el cuento. Maximo una frase.`;
 }
 
-function generatePrompt2(protagonista, primeraParte, segundaParte) {
-    return `crea un breve final a sorpresa de maximo tres frases por este cuento: ${primeraParte} ${segundaParte}.
-    Destaca la peculiaridad del protagonista de ser ${protagonista}`;
+function generatePrompt2(primeraParte, segundaParte) {
+    return `crea un final a sorpresa de maximo tres frases por este cuento: ${primeraParte} ${segundaParte}`;
 }
