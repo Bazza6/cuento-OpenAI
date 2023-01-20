@@ -37,14 +37,19 @@ export default function Home() {
       const parts = data.result.split("\n");
       console.log('parts:', parts)
       let partsLength = parts.length
-      console.log('length', partsLength)
       for (let i = 0; i < partsLength; i++)
-        if (parts[i].includes('1. ')) {
+        if (parts[i].includes('1.')) {
+          setPrimeraParte(parts[i].replace("1.", ""))
+        } else if (parts[i].includes('1. ')) {
           setPrimeraParte(parts[i].replace("1. ", ""))
         } else if (parts[i].includes("2. Opción A: ")) {
           setA(parts[i].replace("2. Opción A: ", ""))
+        } else if (parts[i].includes("2.Opción A: ")) {
+          setA(parts[i].replace("2.Opción A: ", ""))
         } else if (parts[i].includes("3. Opción B: ")) {
           setB(parts[i].replace("3. Opción B: ", ""))
+        } else if (parts[i].includes("3.Opción B: ")) {
+          setB(parts[i].replace("3.Opción B: ", ""))
         }
 
       setProtagonista("");

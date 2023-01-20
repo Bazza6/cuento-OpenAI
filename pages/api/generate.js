@@ -52,7 +52,7 @@ export default async function (req, res) {
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: prompt,
-            temperature: 0.6,
+            temperature: 0.8,
             max_tokens: 500,
         });
         res.status(200).json({ result: completion.data.choices[0].text });
@@ -65,12 +65,13 @@ function generatePrompt1(protagonista, lugar) {
 
     return `
     crea 3 puntos:
-    1. La primera parte de un cuento para niños ambientado en ${lugar} y
-    que tiene como protagonista ${protagonista}.
+    1. La primera parte de un cuento lleno de aventura y sorpresas ambientado en ${lugar} y
+    que tiene como protagonista ${protagonista}. Destaca las peculiaridades del protagonista y lugar.
     2. Opción A de como podria seguir el cuento. Maximo una frase.
     3. Opción B de como podria seguir el cuento. Maximo una frase.`;
 }
 
-function generatePrompt2(primeraParte, segundaParte) {
-    return `crea un final corto  de maximo tres frases por este cuento: ${primeraParte}. ${segundaParte}`;
+function generatePrompt2(protagonista, primeraParte, segundaParte) {
+    return `crea un breve final a sorpresa de maximo tres frases por este cuento: ${primeraParte} ${segundaParte}.
+    Destaca la peculiaridad del protagonista de ser ${protagonista}`;
 }
