@@ -65,7 +65,7 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          prompt: `${protagonista} in ${lugar} retro art`,
+          prompt: `${protagonista} en ${lugar}. Retro art`,
         }),
       });
 
@@ -121,6 +121,12 @@ export default function Home() {
     setDisabledInput()
     setDisableButton()
   }
+
+  console.log('A: ', A)
+  console.log('B: ', B)
+  console.log('primeraParte: ', primeraParte)
+  console.log('imageURL: ', imageURL)
+
   return (
     <div className="container">
       <main>
