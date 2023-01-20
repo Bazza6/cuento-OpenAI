@@ -40,8 +40,6 @@ export default function Home() {
       for (let i = 0; i < partsLength; i++)
         if (parts[i].includes('1.')) {
           setPrimeraParte(parts[i].replace("1.", ""))
-        } else if (parts[i].includes('1. ')) {
-          setPrimeraParte(parts[i].replace("1. ", ""))
         } else if (parts[i].includes("2. Opción A: ")) {
           setA(parts[i].replace("2. Opción A: ", ""))
         } else if (parts[i].includes("2.Opción A: ")) {
