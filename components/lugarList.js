@@ -20,7 +20,7 @@ export default function LugarList({ lugar, setLugar, disabledInput }) {
                 < Radio
                     checked={p.prompt === lugar}
                     value={p.prompt}
-                    name='Ambientación'
+                    name='ambientacion'
                     id={p.prompt}
                     type="radio"
                     label={p.name}
@@ -37,7 +37,7 @@ export default function LugarList({ lugar, setLugar, disabledInput }) {
         <Window>
             <WindowContent>
 
-                <GroupBox label='ambientacion' >
+                <GroupBox label='Ambientación' >
 
                     <div onChange={onChangeValue}>
                         {list}
