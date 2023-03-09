@@ -12,12 +12,8 @@ export default function ProtagonistasList({ protagonista, setProtagonista, disab
     }
 
     const list = protagonistas.map((p, index) => {
-
-
         return (
             <div key={index}>
-                {/* <input type="radio" id={p.prompt} name='radio' value={p.prompt} />
-                <label htmlFor={p.prompt}>{p.name}</label> */}
 
                 <Radio
                     checked={p.prompt === protagonista}
@@ -27,7 +23,7 @@ export default function ProtagonistasList({ protagonista, setProtagonista, disab
                     type="radio"
                     label={p.name}
                     onchange={handleChange}
-                    disabled={disabledInput}
+                    disabled={disabledInput && p.prompt !== protagonista}
                 />
             </div>
         )
@@ -39,7 +35,7 @@ export default function ProtagonistasList({ protagonista, setProtagonista, disab
         <Window>
             <WindowContent>
 
-                <GroupBox label='protagonista' >
+                <GroupBox label='Protagonista' >
 
                     <div onChange={onChangeValue}>
                         {list}
