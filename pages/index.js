@@ -128,8 +128,8 @@ export default function Home() {
   const onClickA = () => {
     onSubmit2(A)
     setActiveButton("A")
-
   }
+  
   const onClickB = () => {
     onSubmit2(B)
     setActiveButton("B")
@@ -141,6 +141,7 @@ export default function Home() {
   // console.log('protagonista: ', protagonista)
   // console.log('primeraParte: ', primeraParte)
   // console.log('imageURL: ', imageURL)
+
 
   return (
     <div className="container">
