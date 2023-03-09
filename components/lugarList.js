@@ -20,7 +20,7 @@ export default function LugarList({ lugar, setLugar, disabledInput }) {
                 < Radio
                     checked={p.prompt === lugar}
                     value={p.prompt}
-                    name='ambientacion'
+                    name='Ambientación'
                     id={p.prompt}
                     type="radio"
                     label={p.name}
