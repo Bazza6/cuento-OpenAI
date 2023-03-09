@@ -1,20 +1,24 @@
 import { useState } from "react";
-import { Button, Frame, Hourglass } from "react95";
+import { Button, Hourglass } from "react95";
 import ProtagonistasList from "../components/protagonistasList";
 import LugarList from "../components/lugarList";
 
 export default function Home() {
   const [protagonista, setProtagonista] = useState("");
   const [lugar, setLugar] = useState("");
+
   const [primeraParte, setPrimeraParte] = useState("");
   const [A, setA] = useState();
   const [B, setB] = useState();
   const [imageURL, setImageURL] = useState()
   const [final, setFinal] = useState()
+  const [disableCrearButton, setDisableCrearButton] = useState(false)
   const [disabledInput, setDisabledInput] = useState(false)
   const [disabledButton, setDisableButton] = useState(false)
+  const [activeButton, setActiveButton] = useState("")
 
   async function onSubmit(event) {
+    setDisableCrearButton(true)
     setDisabledInput(true)
     event.preventDefault();
     try {
@@ -50,8 +54,6 @@ export default function Home() {
           setB(parts[i].replace("3.Opción B: ", ""))
         }
 
-      setProtagonista("");
-      setLugar("");
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -113,6 +115,7 @@ export default function Home() {
   const reset = () => {
     setProtagonista("")
     setLugar("")
+    setDisableCrearButton(false)
     setPrimeraParte("");
     setA();
     setB();
@@ -122,10 +125,22 @@ export default function Home() {
     setDisableButton()
   }
 
-  console.log('A: ', A)
-  console.log('B: ', B)
-  console.log('primeraParte: ', primeraParte)
-  console.log('imageURL: ', imageURL)
+  const onClickA = () => {
+    onSubmit2(A)
+    setActiveButton("A")
+
+  }
+  const onClickB = () => {
+    onSubmit2(B)
+    setActiveButton("B")
+  }
+
+  // console.log('A: ', A)
+  // console.log('A: ', A)
+  // console.log('lugar: ', lugar)
+  // console.log('protagonista: ', protagonista)
+  // console.log('primeraParte: ', primeraParte)
+  // console.log('imageURL: ', imageURL)
 
   return (
     <div className="container">
@@ -134,15 +149,15 @@ export default function Home() {
           <ProtagonistasList protagonista={protagonista} setProtagonista={setProtagonista} disabledInput={disabledInput} />
           <LugarList lugar={lugar} setLugar={setLugar} disabledInput={disabledInput} />
         </div>
-        <Button disabled={!protagonista || !lugar} onClick={onSubmit}> Crea el cuento</Button>
+        <Button disabled={disableCrearButton || !(lugar && protagonista)} onClick={onSubmit}> Crea el cuento</Button>
 
         {(disabledInput && !primeraParte) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> : <div className="primaParte">{primeraParte}</div>}
 
         {(primeraParte && !imageURL) ? <div><Hourglass size={32} style={{ margin: 40 }} /></div> : <>
           <img className="img" src={imageURL} />
           <div className="buttonsContainer">
-            {A && <Button disabled={disabledButton} size="xl" onClick={() => onSubmit2(A)}>{A}</Button>}
-            {B && <Button disabled={disabledButton} size="xl" onClick={() => onSubmit2(B)}>{B}</Button>}
+            {A && <Button active={activeButton === "A"} disabled={activeButton === "B"} size="xl" onClick={onClickA}>{A}</Button>}
+            {B && <Button active={activeButton === "B"} disabled={activeButton === "A"} size="xl" onClick={onClickB}>{B}</Button>}
           </div>
         </>}
 

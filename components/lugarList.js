@@ -14,7 +14,6 @@ export default function LugarList({ lugar, setLugar, disabledInput }) {
 
 
     const list = ambientacion.map((p, index) => {
-
         return (
 
             <div key={index}>
@@ -26,7 +25,7 @@ export default function LugarList({ lugar, setLugar, disabledInput }) {
                     type="radio"
                     label={p.name}
                     onchange={handleChange}
-                    disabled={disabledInput}
+                    disabled={disabledInput && p.prompt !== lugar}
                 />
             </div >
         )
