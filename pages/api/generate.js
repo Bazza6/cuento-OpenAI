@@ -70,11 +70,13 @@ export default async function (req, res) {
 function generatePrompt1(protagonista, lugar) {
 
     return `
-    crea 3 puntos:
+    crea tre puntos.
     1. La primera parte de un cuento lleno de aventura y sorpresas ambientado en ${lugar} y
-    que tiene como protagonista ${protagonista}. Destaca las peculiaridades del protagonista y lugar. Maximo 50 palabras.
-    2. Opción A de como podria seguir el cuento. Maximo una frase.
-    3. Opción B de como podria seguir el cuento. Maximo una frase.`;
+    que tiene como protagonista ${protagonista}. Destaca las peculiaridades del protagonista y lugar.
+    La primera parte del cuento termina con una pregunta al lector sobre como sigue la historia. Maximo 50 palabras.
+    2. Primera opción para seguir la historia? Maximo 10 palabras.
+    3. Segunda opción para seguir la historia? Maximo 10 palabras.
+    `;
 }
 
 function generatePrompt2(primeraParte, segundaParte) {
