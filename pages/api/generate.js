@@ -1,5 +1,9 @@
 import { Configuration, OpenAIApi } from "openai";
 
+// export const config = {
+//     runtime: "edge",
+// }
+
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
@@ -49,13 +53,15 @@ export default async function (req, res) {
             break;
     }
     try {
-        const completion = await openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: prompt,
+        const completion = await openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: prompt }],
+            // prompt: prompt,
             temperature: 0.8,
             max_tokens: 500,
         });
-        res.status(200).json({ result: completion.data.choices[0].text });
+        res.status(200)
+            .json({ result: completion.data.choices[0].message.content });
     } catch (error) {
         console.log(error)
     }
@@ -66,11 +72,11 @@ function generatePrompt1(protagonista, lugar) {
     return `
     crea 3 puntos:
     1. La primera parte de un cuento lleno de aventura y sorpresas ambientado en ${lugar} y
-    que tiene como protagonista ${protagonista}. Destaca las peculiaridades del protagonista y lugar.
+    que tiene como protagonista ${protagonista}. Destaca las peculiaridades del protagonista y lugar. Maximo 50 palabras.
     2. Opción A de como podria seguir el cuento. Maximo una frase.
     3. Opción B de como podria seguir el cuento. Maximo una frase.`;
 }
 
 function generatePrompt2(primeraParte, segundaParte) {
-    return `crea un final a sorpresa de maximo tres frases por este cuento: ${primeraParte} ${segundaParte}`;
+    return `crea un final a sorpresa por este cuento: ${primeraParte} ${segundaParte}. Maximo 50 palabras.`;
 }
