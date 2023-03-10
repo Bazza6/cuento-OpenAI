@@ -48,10 +48,14 @@ export default function Home() {
           setA(parts[i].replace("2. Opción A: ", ""))
         } else if (parts[i].includes("2.Opción A: ")) {
           setA(parts[i].replace("2.Opción A: ", ""))
+        } else if (parts[i].includes("2.")) {
+          setA(parts[i].replace("2.", ""))
         } else if (parts[i].includes("3. Opción B: ")) {
           setB(parts[i].replace("3. Opción B: ", ""))
         } else if (parts[i].includes("3.Opción B: ")) {
           setB(parts[i].replace("3.Opción B: ", ""))
+        } else if (parts[i].includes("3.")) {
+          setB(parts[i].replace("3.", ""))
         }
 
     } catch (error) {
@@ -129,7 +133,7 @@ export default function Home() {
     onSubmit2(A)
     setActiveButton("A")
   }
-  
+
   const onClickB = () => {
     onSubmit2(B)
     setActiveButton("B")
