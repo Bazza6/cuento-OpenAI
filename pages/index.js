@@ -127,6 +127,7 @@ export default function Home() {
     setFinal()
     setDisabledInput()
     setDisableButton()
+    setActiveButton("")
   }
 
   const onClickA = () => {
